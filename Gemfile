@@ -10,6 +10,8 @@ end
 gem 'rails', '~> 5.1.4'
 # Use postgres as the database for Sequel, instead of Active Record
 gem 'pg'
+gem "sequel", '4.41.0'
+gem 'sequel-rails'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

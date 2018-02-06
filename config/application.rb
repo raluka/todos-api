@@ -4,7 +4,6 @@ require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
-require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
@@ -24,6 +23,16 @@ module TodosApi
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    ActionController::API.send :include, SequelRails::Railties::ControllerRuntime
+    Sequel::Model.raise_on_save_failure = false
+    config.sequel.schema_format = :sql
+
+    config.sequel.after_connect = proc do
+      Sequel::Model.plugin :validation_helpers
+      Sequel::Model.plugin :timestamps, update_on_create: true
+      Sequel::Model.plugin :update_or_create
+      Sequel::Model.plugin :after_initialize
+    end
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.

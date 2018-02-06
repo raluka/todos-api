@@ -1,0 +1,19 @@
+defaults: &defaults
+   encoding: unicode
+   adapter: postgresql
+   host: localhost
+   port: 5432
+   database: todos_development
+   username:
+   password:
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: todos_test
+
+production:
+  <<: *default
+  database: todos_production
